@@ -4,7 +4,7 @@ window.Bacontrap = Bacontrap
 sinon = require 'sinon'
 
 simulateKeyEvent = (type, keyCode) ->
-  event = document.createEvent('Events')
+  event = document.createEvent('Event')
   event.initEvent(type, true, true);
   event.keyCode = event.which = keyCode
   event
