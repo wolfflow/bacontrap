@@ -3,10 +3,12 @@ window.Bacontrap = Bacontrap
 {expect} = require 'chai'
 sinon = require 'sinon'
 
-simulateKeyEvent = (type, keyCode) ->
+simulateKeyEvent = (type, keyCode, target=null, bubbles=true, cancelable=true) ->
   event = document.createEvent('Event')
-  event.initEvent(type, true, true);
+  event.target = target if target
+  event.initEvent(type, bubbles, cancelable)
   event.keyCode = event.which = keyCode
+  
   event
 
 
@@ -105,12 +107,15 @@ describe "Bacontrap", ->
       expect(spy.called).to.be.ok
 
     describe 'input fields', ->
-      event = new CustomEvent('keypress', which: 'a'.charCodeAt(0), target: document.createElement('input'))
+      input = document.createElement('input')
+      event = simulateKeyEvent('keypress', 'a'.charCodeAt(0), input, false)
+      #event = new CustomEvent('keypress', which: 'a'.charCodeAt(0), target: document.createElement('input'))
 
       it 'ignores events from inputs by default', ->
         spy = sinon.spy()
         Bacontrap.bind('a').take(1).onValue spy
         document.dispatchEvent(event)
+
         expect(spy.called).to.not.be.ok
 
       it 'can set global keyboard shortcuts', ->
