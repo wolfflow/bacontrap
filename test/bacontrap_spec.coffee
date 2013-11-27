@@ -79,35 +79,44 @@ describe "Bacontrap", ->
     it 'binds to keyboard shortcuts', ->
       spy = sinon.spy()
       Bacontrap.bind('l', 1).take(1).onValue spy
-      event = $.Event('keypress', which: 'l'.charCodeAt(0))
-      $(document).triggerHandler(event)
+      #event = $.Event('keypress', which: 'l'.charCodeAt(0))
+      event = new CustomEvent('keypress', which: 'l'.charCodeAt(0))
+      #$(document).triggerHandler(event)
+      document.dispatchEvent(event)
       expect(spy.calledWith(event)).to.be.ok
 
     it 'binds to array of shortcuts', ->
       spy = sinon.spy()
       Bacontrap.bind(['l', 'o']).take(2).onValue spy
-      $(document).triggerHandler($.Event('keypress', which: 'l'.charCodeAt(0)))
-      $(document).triggerHandler($.Event('keypress', which: 'o'.charCodeAt(0)))
+      #$(document).triggerHandler($.Event('keypress', which: 'l'.charCodeAt(0)))
+      #$(document).triggerHandler($.Event('keypress', which: 'l'.charCodeAt(0)))
+      document.dispatchEvent(new CustomEvent('keypress', which: 'l'.charCodeAt(0)))
+      document.dispatchEvent(new CustomEvent('keypress', which: 'o'.charCodeAt(0)))
       expect(spy.callCount).to.equal 2
 
     it 'can handle shortcuts with esc', ->
       spy = sinon.spy()
       Bacontrap.bind('esc a').take(1).onValue spy
-      $(document).triggerHandler($.Event('keydown', which: 27)) #esc
-      $(document).triggerHandler($.Event('keypress', which: 'a'.charCodeAt(0)))
+      # $(document).triggerHandler($.Event('keydown', which: 27)) #esc
+      # $(document).triggerHandler($.Event('keypress', which: 'a'.charCodeAt(0)))
+      document.dispatchEvent(new CustomEvent('keydown', which: 27)) #esc
+      document.dispatchEvent(new CustomEvent('keypress', which: 'a'.charCodeAt(0)))
       expect(spy.called).to.be.ok
 
     describe 'input fields', ->
-      event = $.Event('keypress', which: 'a'.charCodeAt(0), target: document.createElement('input'))
+      #event = $.Event('keypress', which: 'a'.charCodeAt(0), target: document.createElement('input'))
+      event = new CustomEvent('keypress', which: 'a'.charCodeAt(0), target: document.createElement('input'))
 
       it 'ignores events from inputs by default', ->
         spy = sinon.spy()
         Bacontrap.bind('a').take(1).onValue spy
-        $(document).triggerHandler(event)
+        # $(document).triggerHandler(event)
+        document.dispatchEvent(event)
         expect(spy.called).to.not.be.ok
 
       it 'can set global keyboard shortcuts', ->
         spy = sinon.spy()
         Bacontrap.bind('a', global: true).take(1).onValue spy
-        $(document).triggerHandler(event)
+        # $(document).triggerHandler(event)
+        document.dispatchEvent(event)
         expect(spy.called).to.be.ok
