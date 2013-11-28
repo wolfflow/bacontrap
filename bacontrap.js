@@ -16,12 +16,12 @@
 
   Bacontrap = {
     input: {
-      special: $(document).asEventStream('keydown').filter(function(event) {
+      special: Bacon.fromEventTarget(document, "keydown").filter(function(event) {
         var key;
         key = Bacontrap.map[event.which];
         return key && __indexOf.call(Bacontrap.modifiers, key) < 0;
       }),
-      keypress: $(document).asEventStream('keypress')
+      keypress: Bacon.fromEventTarget(document, "keypress")
     },
     defaults: {
       timeout: 1500,
