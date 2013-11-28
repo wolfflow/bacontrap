@@ -87,7 +87,7 @@ Bacontrap.bind = (shortcuts, options = {}) ->
   filteredInput = if options.global || Bacontrap.defaults.global
     input
   else
-     input.filter(Bacontrap.notInput)
+    input.filter(Bacontrap.notInput)
 
   streams = for shortcut in [].concat(shortcuts)
     parsed = Bacontrap.parse(shortcut)
