@@ -63,7 +63,6 @@ Bacontrap.notInput = (event) ->
   element = event.target || event.srcElement || {}
   contentEditable = element.contentEditable
   tagName = element.tagName
-
   !(tagName == 'INPUT' || tagName == 'SELECT' || tagName == 'TEXTAREA' ||
     (contentEditable && contentEditable == 'true' || contentEditable == 'plaintext-only'))
 
