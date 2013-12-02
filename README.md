@@ -3,9 +3,6 @@
 [Mousetrap](https://github.com/ccampbell/mousetrap) inspired keyboard
 shortcuts implemented with [Bacon.js](https://github.com/raimohanska/bacon.js).
 
-Unlike Mousetrap, Bacontrap is not a standalone library: Bacon.js and
-jQuery/Zepto are dependencies. Since these provide functionality for
-Bacontrap, the library itself is even smaller than Mousetrap.
 
 ## Installation
 
